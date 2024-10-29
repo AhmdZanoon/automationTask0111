@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class imagesEndpointTest {
+public class ImagesEndpointTest {
     String uploadedImageId;
     String imageUrl ;
     int width;
