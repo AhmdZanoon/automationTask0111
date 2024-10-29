@@ -1,20 +1,14 @@
 package apiTests;
 
 import io.qameta.allure.restassured.AllureRestAssured;
-import io.restassured.response.Response;
-import org.aeonbits.owner.ConfigCache;
-import org.aeonbits.owner.ConfigFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import utilities.ApiProperties;
-
-import java.io.File;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class BreedsEndpoint extends ApiTestSetup {
+public class BreedsEndpointTest extends ApiTestSetup {
 
 
     @BeforeClass
