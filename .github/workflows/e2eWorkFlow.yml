@@ -51,4 +51,6 @@ jobs:
               name: "allure-report"
               path: "allure-report/allure-report.html"
       - name: Clean up Docker container
-        run: docker rm -f my-app-container
+        run: |
+          docker kill my-app-container
+          docker rm -f my-app-container
