@@ -20,7 +20,7 @@ jobs:
       - name: Run tests in Docker container
         run: |
             docker run --name my-app-container my-app
-            docker cp my-app-container:/allure-results
+            docker cp my-app-container:/app/allure-results ./allure-results
 
 #      - name: Set up JDK 21
 #        uses: actions/setup-java@v4
