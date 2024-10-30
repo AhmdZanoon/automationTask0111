@@ -2,9 +2,9 @@ name: API Test CI
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
   pull_request:
-    branches: [master]
+    branches: [ master ]
 
 jobs:
   test:
@@ -31,9 +31,14 @@ jobs:
       - name: Build with Maven and run tests
         run: mvn clean test
 
-      # - name: Upload Allure results to GitHub Pages
-      #   if: always()  # Runs even if tests fail
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: allure-results
-      #     path: target/allure-results
+      - name: Generate Allure Report
+        if: always()  # Runs even if tests fail
+        run: allure:report
+      - name: Rename Allure Report Index File
+        run: mv allure-report/index.html allure-report/allure-report.html
+      - name: Upload Allure Report
+        if: always()  # Runs even if tests fail
+        uses: actions/upload-artifact@v3
+        with:
+              name: "allure-report"
+              path: "target/allure-report"

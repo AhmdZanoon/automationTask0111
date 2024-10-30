@@ -13,6 +13,9 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.9.22.1</aspectj.version>
+        <allure.results.directory>${project.basedir}/allure-results</allure.results.directory>
+        <allure.report.directory>${project.basedir}/allure-report</allure.report.directory>
+
     </properties>
     <dependencies>
         <dependency>
