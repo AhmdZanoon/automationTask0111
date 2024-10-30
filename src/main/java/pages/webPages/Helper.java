@@ -3,6 +3,7 @@ package pages.webPages;
 import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import utilities.WebProperties;
 
@@ -21,7 +22,12 @@ public class Helper {
         }
         switch(browser) {
             case "chrome":
-                driver = new ChromeDriver();
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--headless");               // Run in headless mode
+                options.addArguments("--no-sandbox");             // Bypass OS security model
+                options.addArguments("--disable-dev-shm-usage");  // Overcome limited resource issues
+                options.addArguments("--disable-gpu");            // Disable GPU rendering
+                driver = new ChromeDriver(options);
                 driver.manage().window().maximize();
                 break;
             case "firefox":

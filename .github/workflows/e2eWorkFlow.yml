@@ -62,22 +62,22 @@ jobs:
         with:
          java-version: '21'
          distribution: 'zulu'
-#      - uses: browser-actions/setup-chrome@v1
-#        with:
-#            chrome-version: latest
-#            install-chromedriver: true
+      - uses: browser-actions/setup-chrome@v1
+        with:
+            chrome-version: latest
+            install-chromedriver: true
 
       - name: Build with Maven and run web tests
         run: mvn test -Dtest=TestRunner -Dbrowser="chrome"
 
       - name: Generate Allure Report for Web Tests
-        if: always()  # Runs even if tests fail
+#        if: always()  # Runs even if tests fail
         run: |
           mvn allure:report
           mv allure-report/index.html allure-report/web-test-report.html
 
       - name: Upload Allure Report for Web Tests
-        if: always()  # Runs even if tests fail
+#        if: always()  # Runs even if tests fail
         uses: actions/upload-artifact@v4
         with:
           name: "allure-web-report"
