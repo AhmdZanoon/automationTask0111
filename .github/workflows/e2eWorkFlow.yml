@@ -33,7 +33,7 @@ jobs:
 
       - name: Generate Allure Report
         if: always()  # Runs even if tests fail
-        run: allure:report
+        run: mvn allure:report
       - name: Rename Allure Report Index File
         run: mv allure-report/index.html allure-report/allure-report.html
       - name: Upload Allure Report
