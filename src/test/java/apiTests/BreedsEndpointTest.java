@@ -1,23 +1,21 @@
 package apiTests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Link;
 import io.qameta.allure.restassured.AllureRestAssured;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 public class BreedsEndpointTest extends ApiTestSetup {
 
-
-    @BeforeClass
-    public void beforeClass() {
-        baseURI = "https://api.thedogapi.com/v1/";
-    }
+@Epic("API Tests")
+@Feature("Breeds Endpoint")
+@Link("https://developers.thedogapi.com/")
 
 
-    @Test()
+    @Test(description = "TC0201 - Get Breeds With Api Key Provided And Assert That Image Url Return")
     public void _01GetBreedsWithAuthentication() {
         given()
                 .filter(new AllureRestAssured())
@@ -36,7 +34,7 @@ public class BreedsEndpointTest extends ApiTestSetup {
     }
 
 
-    @Test
+    @Test(description = "TC0202 - Get Breeds Without Api Key Provided And Assert On Size Of Response and The Name Of first Breed")
     public void _02GetBreedsWithoutAuthentication() {
         given()
                 .filter(new AllureRestAssured())

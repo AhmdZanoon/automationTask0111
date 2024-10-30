@@ -1,32 +1,27 @@
 package apiTests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Link;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 import java.io.File;
-
-import static apiTests.ApiTestSetup.apiProperties;
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
-public class ImagesEndpointTest {
+@Epic("API Tests")
+@Feature("Images Endpoint")
+@Link("https://developers.thedogapi.com/")
+public class ImagesEndpointTest extends ApiTestSetup {
     String uploadedImageId;
     String imageUrl ;
     int width;
     int height;
 
 
-    @BeforeClass
-    public void beforeClass() {
-        baseURI = "https://api.thedogapi.com/v1/";
-
-    }
-    @Test
-    public void _01uploadImage() {
+    @Test (description = "TC0101 - Test Post Method By Uploading New Image And asserting Status Code and Returned url")
+    public void _01UploadImage() {
         String imagePath = "src/test/resources/testDataFile/apiTestData.jpg";
         File file = new File(imagePath);
         Response response = given()
@@ -51,7 +46,7 @@ public class ImagesEndpointTest {
 
     }
 
-    @Test
+    @Test (description = "TC0102 - Testing Get Method By Calling The Uploaded Image In TC0101 and asserting on Response Body")
     public void _02getUploadedImage() {
         given()
                 .filter(new AllureRestAssured())
@@ -70,7 +65,7 @@ public class ImagesEndpointTest {
 
     }
 
-    @Test
+    @Test(description = "TC0103 - Testing Delete Method By Deleting uploaded Image in TC0101 and asserting on Status Code")
     public void _03deleteUploadedImage() {
         given()
                 .filter(new AllureRestAssured())
@@ -81,6 +76,23 @@ public class ImagesEndpointTest {
                 then().log().all()
                 .statusCode(204)
                 .assertThat().body(equalTo(""))
+                .extract()
+                .response();
+
+    }
+
+    @Test (description = "TC0104 - Testing Get Method By Calling The Uploaded Image In TC0101 after Deleting and Asserting on Response Body")
+    public void _04GetUploadedImageAfterDelete() {
+        given()
+                .filter(new AllureRestAssured())
+                .header("x-api-key", apiProperties.apiKey())
+                .log().all().
+                when().
+                get("/images/"+this.uploadedImageId).
+                then().log().all()
+                .statusCode(400)
+                .assertThat()
+                .body(containsString("Couldn't find an image matching the passed 'id' of " +this.uploadedImageId))
                 .extract()
                 .response();
 
