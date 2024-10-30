@@ -13,40 +13,40 @@ jobs:
     steps:
       - name: Check out the code
         uses: actions/checkout@v4
+      #
+      #      - name: Build Docker image
+      #        run: docker build -t my-app .
+      #
+      #      - name: Run tests in Docker container
+      #        run: |
+      #            docker run --name my-app-container my-app
+      #            docker cp my-app-container:/app/allure-results ./allure-results
 
-      - name: Build Docker image
-        run: docker build -t my-app .
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'zulu'
 
-      - name: Run tests in Docker container
-        run: |
-            docker run --name my-app-container my-app
-            docker cp my-app-container:/app/allure-results ./allure-results
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-#      - name: Set up JDK 21
-#        uses: actions/setup-java@v4
-#        with:
-#          java-version: '21'
-#          distribution: 'zulu'
-#
-#      - name: Cache Maven packages
-#        uses: actions/cache@v4
-#        with:
-#          path: ~/.m2
-#          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-#          restore-keys: |
-#            ${{ runner.os }}-maven-
-#
-#      - name: Build with Maven and run tests
-#        run: mvn clean test
+      - name: Build with Maven and run tests
+        run: mvn clean test
 
       - name: Generate Allure Report
         if: always()  # Runs even if tests fail
         run: |
-             mvn allure:report
-             mv allure-report/index.html allure-report/allure-report.html
+          mvn allure:report
+          mv allure-report/index.html allure-report/allure-report.html
       - name: Upload Allure Report
         if: always()  # Runs even if tests fail
         uses: actions/upload-artifact@v4
         with:
-              name: "allure-report"
-              path: "allure-report/allure-report.html"
+          name: "allure-report"
+          path: "allure-report/allure-report.html"
