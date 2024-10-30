@@ -14,22 +14,30 @@ jobs:
       - name: Check out the code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'zulu'
+      - name: Build Docker image
+        run: docker build -t my-app
 
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+      - name: Run tests in Docker container
+        run: |
+            docker run --name my-app-container my-app
+            docker cp my-app-container:/app/allure-results /allure-results   
 
-      - name: Build with Maven and run tests
-        run: mvn clean test
+#      - name: Set up JDK 21
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version: '21'
+#          distribution: 'zulu'
+#
+#      - name: Cache Maven packages
+#        uses: actions/cache@v4
+#        with:
+#          path: ~/.m2
+#          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+#          restore-keys: |
+#            ${{ runner.os }}-maven-
+#
+#      - name: Build with Maven and run tests
+#        run: mvn clean test
 
       - name: Generate Allure Report
         if: always()  # Runs even if tests fail
@@ -42,3 +50,5 @@ jobs:
         with:
               name: "allure-report"
               path: "allure-report/allure-report.html"
+      - name: Clean up Docker container
+        run: docker rm -f my-app-container
