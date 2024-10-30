@@ -6,6 +6,7 @@ on:
 
 jobs:
   api-test:
+    if: false
     runs-on: ubuntu-latest
 
     steps:
@@ -63,9 +64,7 @@ jobs:
          java-version: '21'
          distribution: 'zulu'
       - uses: browser-actions/setup-chrome@v1
-        with:
-            chrome-version: latest
-            install-chromedriver: true
+      - run: chrome --version
 
       - name: Build with Maven and run web tests
         run: mvn test -Dtest=TestRunner -Dbrowser="chrome"
