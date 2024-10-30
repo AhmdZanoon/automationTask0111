@@ -34,11 +34,10 @@ jobs:
       - name: Generate Allure Report
         if: always()  # Runs even if tests fail
         run: mvn allure:report
-      - name: Rename Allure Report Index File
-        run: mv allure-report/index.html allure-report/allure-report.html
+             mv allure-report/index.html allure-report/allure-report.html
       - name: Upload Allure Report
         if: always()  # Runs even if tests fail
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
               name: "allure-report"
               path: "allure-report/allure-report.html"
