@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN mvn clean test
+RUN mvn test -Dtest=mvn test -Dtest=*Test
 
 CMD ["mvn", "test"]
 
