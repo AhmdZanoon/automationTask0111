@@ -6,7 +6,7 @@ on:
 
 jobs:
   api-test:
-    if: false
+    if: true
     runs-on: ubuntu-latest
 
     steps:
@@ -27,13 +27,13 @@ jobs:
 #          java-version: '21'
 #          distribution: 'zulu'
 #
-#      - name: Cache Maven packages
-#        uses: actions/cache@v4
-#        with:
-#          path: ~/.m2
-#          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-#          restore-keys: |
-#            ${{ runner.os }}-maven-
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 #
 #      - name: Build with Maven and run tests
 #        run: mvn clean test
@@ -65,18 +65,24 @@ jobs:
          distribution: 'zulu'
       - uses: browser-actions/setup-chrome@v1
       - run: chrome --version
-
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Build with Maven and run web tests
         run: mvn test -Dtest=TestRunner -Dbrowser="chrome"
 
       - name: Generate Allure Report for Web Tests
-#        if: always()  # Runs even if tests fail
+        if: always()  # Runs even if tests fail
         run: |
           mvn allure:report
           mv allure-report/index.html allure-report/web-test-report.html
 
       - name: Upload Allure Report for Web Tests
-#        if: always()  # Runs even if tests fail
+        if: always()  # Runs even if tests fail
         uses: actions/upload-artifact@v4
         with:
           name: "allure-web-report"
