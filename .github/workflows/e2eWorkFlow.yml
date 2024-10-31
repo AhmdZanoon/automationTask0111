@@ -85,6 +85,6 @@ jobs:
         if: always()  # Runs even if tests fail
         uses: actions/upload-artifact@v4
         with:
-          name: "allure-web-report"
+          name: "web-allure-report"
           path: "allure-report/web-test-report.html"
 
