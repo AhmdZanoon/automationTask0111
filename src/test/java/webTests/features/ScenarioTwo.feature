@@ -1,3 +1,4 @@
+@allure.label.epic:WebTests
 Feature: Login With Valid Credentials And Complete Purchase Process
 
   Scenario: Navigate To Sauce Demo Login Page And Login With Correct username And Passwords Then Complete Purchase Process

@@ -1,4 +1,6 @@
-Feature: Login With Different Credentials And Verify Error Messages
+@allure.label.epic:WebTests
+Feature: Verify Login Errors
+
 
   @TC1
   Scenario: Navigate To Sauce Demo Login Page And Login With Wrong username And Passwords Assert The Error Message
