@@ -3,7 +3,6 @@ package utilities;
 import org.aeonbits.owner.Config;
 
 import org.aeonbits.owner.Config.Sources;
-import org.aeonbits.owner.ConfigFactory;
 
 
 @Config.LoadPolicy(Config.LoadType.MERGE)
@@ -18,11 +17,8 @@ import org.aeonbits.owner.ConfigFactory;
 
 public interface ApiProperties extends Config {
 
-    @Key("url")
+    @Key("baseUri")
     String baseUri();
-
-
-
 
     @Key("apiKey")
     @DefaultValue("")
