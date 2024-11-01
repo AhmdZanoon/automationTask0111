@@ -41,10 +41,12 @@ This is an automation testing project built with Java, using Selenium for web UI
     - **properties**: Contains configuration files, `ApiProperties.properties` and `webProperties.properties`, for API and web tests.
 
 ## Running Tests
-**API Tests**: Run all API tests using the following Maven command:
+**API Tests**: 
+- Run all API tests locally using the following Maven command:
    ```bash
    mvn test -Dtest=apiTests.**
    ```
+- or you can run All (API and WEB ) tests from GitHub action https://github.com/AhmdZanoon/automationTask0111/actions/workflows/e2eWorkFlow.yml
   ### list of API Test Cases 
 - test cases cover 2 endpoint from thedogapi.com ( images endpoint and breeds endpoint )
 - testing CRUD operations on Images endpoint
