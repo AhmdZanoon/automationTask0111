@@ -52,18 +52,21 @@ This is an automation testing project built with Java, using Selenium for web UI
 - testing CRUD operations on Images endpoint
 - testing GET http Method on Breeds endpoint with and without authentication  
 
- **Web UI Tests**: Run all web UI tests:
+**Web UI Tests**: 
+ - Run all web UI tests locally using the following Maven command:
    ```bash
    mvn test -Dtest=webTests.**
    ```
+ - or you can run All (API and WEB ) tests from GitHub action https://github.com/AhmdZanoon/automationTask0111/actions/workflows/e2eWorkFlow.yml
+
   
 ## Configurations
 - **ApiProperties.properties**: Configuration for API endpoints.
 - **webProperties.properties**: Configuration for web settings (e.g., browser type, base URL).
 
 ## Reporting 
-to run test report after end of test execution, open cmd in project directory and run following command
+- to run test report after end of test execution locally , open cmd in project directory and run following command
 ```bash
   mvn allure:report
 ```
-
+- or after GitHub Action Execution , you will find Reports attached as artifacts
