@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import tools.Assisstant;
 
-import static pages.webPages.Helper.webProperties;
+import static tools.WebConfigurationManager.webProperties;
 
 
 public class SauceDemoLoginPage {

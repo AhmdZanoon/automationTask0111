@@ -73,7 +73,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Build with Maven and run web tests
-        run: mvn test -Dtest=TestRunner -Dbrowser="chrome"
+        run: mvn test -Dtest=TestRunner -Dbrowser="chrome" -DheadlessMode=true
 
       - name: Generate Allure Report for Web Tests
         if: always()  # Runs even if tests fail

@@ -23,4 +23,10 @@ public interface WebProperties extends Config {
     String webUrl();
 
 
+    @Key("headlessMode")
+    @DefaultValue("false")
+    boolean headlessMode();
+
+
+
 }

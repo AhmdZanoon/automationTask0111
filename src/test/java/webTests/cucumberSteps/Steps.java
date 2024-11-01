@@ -8,6 +8,7 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import pages.webPages.*;
 import tools.Assisstant;
+import tools.WebConfigurationManager;
 
 public class Steps {
     private WebDriver driver;
@@ -15,7 +16,7 @@ public class Steps {
 
     @Given("I Open The Browser")
     public void I_Open_The_Browser() {
-        this.driver = new Helper().browserSetup();
+        this.driver = new WebConfigurationManager().browserSetup();
     }
 
     @When("I Navigate To Url")
